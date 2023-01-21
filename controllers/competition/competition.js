@@ -17,16 +17,19 @@ const addCompetition = async (req, res, next) => {
       des,
       image,
       teamSize,
-      categoryName,
+      category: {},
       host: "host ID",
     };
+
+    obj.category.name = categoryName;
 
     let newObj = new Competitions(obj);
     await newObj.save();
 
-    await res.status(202).send("Saved");
+    res.status(202).send("Saved");
   } catch (e) {
     const error = new HttpError("Server Error", 505);
+    console.log(e);
     return next(error);
   }
 };
