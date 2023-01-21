@@ -14,6 +14,7 @@ router.post(
   [check("des", "des is Required").not().isEmpty()],
   [check("image", "image is Required").not().isEmpty()],
   [check("categoryName", "categoryName is Required").not().isEmpty()],
+  [check("teamSize", "teamSize is Required").not().isEmpty()],
   competition.addCompetition
 );
 
