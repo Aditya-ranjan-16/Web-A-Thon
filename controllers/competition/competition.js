@@ -77,7 +77,7 @@ const EditCompetition = async (req, res, next) => {
     users.show = show;
   }
   try {
-    await getEvent.save();
+    await users.save();
     res.status(200).json({ success: true });
   } catch (err) {
     const error = new HttpError("Error saving the updated event", 401);
