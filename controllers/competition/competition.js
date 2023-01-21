@@ -1,5 +1,5 @@
 const HttpError = require("../../models/HttpError");
-const CompetitionSchema = require("../../models/competition");
+const Competitions = require("../../models/competitionSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
@@ -21,7 +21,7 @@ const addCompetition = async (req, res, next) => {
       host: "host ID",
     };
 
-    let newObj = new CompetitionSchema(obj);
+    let newObj = new Competitions(obj);
     await newObj.save();
 
     await res.status(202).send("Saved");
