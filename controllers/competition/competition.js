@@ -9,9 +9,11 @@ const addCompetition = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name } = req.body;
+  const { name, des, image } = req.body;
 
-  res.status(202).send(name);
+  res
+    .status(202)
+    .send({ message: `Name = ${name} || des = ${des} || img = ${image}` });
 };
 
 exports.addCompetition = addCompetition;
