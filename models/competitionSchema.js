@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const competitionSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   des: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
-    required: true,
+    // required: true,
   },
   teamSize: {
     type: "number",
@@ -29,7 +29,7 @@ const competitionSchema = new mongoose.Schema({
     {
       name: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
   ],
