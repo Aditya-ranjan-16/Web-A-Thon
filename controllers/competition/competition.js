@@ -47,10 +47,9 @@ const DeleteCompetition = async (req, res, next) => {
 
   const { _id } = req.body;
 
-  let userCheck = await Competitions.updateOne(
-    { user: userID },
-    { $pull: { Product: { _id: _id } } }
-  );
+  let userCheck = await Competitions.deleteOne({
+    _id,
+  });
 
   res.status(202).json(userCheck);
 };
