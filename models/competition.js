@@ -25,6 +25,14 @@ const competitionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
   },
+  category: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   date: { type: Date, default: Date.now },
 });
 
