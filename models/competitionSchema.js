@@ -34,6 +34,10 @@ const competitionSchema = new mongoose.Schema({
     },
   ],
   date: { type: Date, default: Date.now },
+  show: {
+    type: "Boolean",
+    default: "false",
+  },
 });
 
 const competitionList = new mongoose.model("Competitions", competitionSchema);
