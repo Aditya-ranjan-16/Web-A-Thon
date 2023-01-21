@@ -5,11 +5,11 @@ const auth = require("../middleWare/auth");
 const { check, validationResult } = require("express-validator");
 
 // auth
-router.use(auth);
+// router.use(auth);
 
 // Public || Get user Data
 router.post(
-  "/",
+  "/add",
   [check("name", "name is Required").not().isEmpty()],
   competition.addCompetition
 );
