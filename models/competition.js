@@ -15,7 +15,6 @@ const competitionSchema = new mongoose.Schema({
   },
   teamSize: {
     type: "number",
-    required: true,
   },
   participants: {
     type: mongoose.Schema.Types.ObjectId,
