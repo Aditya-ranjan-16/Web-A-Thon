@@ -35,6 +35,6 @@ const competitionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
 });
 
-const competitionList = new mongoose.model("competition", competitionSchema);
+const competitionList = new mongoose.model("Competitions", competitionSchema);
 
 module.exports = competitionList;
