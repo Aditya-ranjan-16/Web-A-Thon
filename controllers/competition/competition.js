@@ -35,4 +35,10 @@ const addCompetition = async (req, res, next) => {
   }
 };
 
+const EditCompetition = async (req, res, next) => {};
+
+const DeleteCompetition = async (req, res, next) => {};
+
+exports.addCompetition = addCompetition;
+exports.EditCompetition = EditCompetition;
 exports.addCompetition = addCompetition;
