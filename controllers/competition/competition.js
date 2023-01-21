@@ -42,14 +42,46 @@ const EditCompetition = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { _id, name, des, teamSize } = req.body;
+  const {
+    _id,
+    name,
+    des,
+    image,
+    teamSize,
+    participants,
+    host,
+    category,
+    date,
+    show,
+  } = req.body;
 
   let users;
   try {
     users = await Competitions.findOne({ _id });
+
     console.log(users);
   } catch (e) {
     const error = new HttpError("Wrong Email Credentials", 400);
+    return next(error);
+  }
+
+  if (users) {
+    users.name = name;
+    users.des = des;
+    users.image = image;
+    users.teamSize = teamSize;
+    users.participants = participants;
+    users.host = host;
+    users.category = category;
+    users.date = date;
+    users.show = show;
+  }
+  try {
+    await getEvent.save();
+    res.status(200).json({ success: true });
+  } catch (err) {
+    const error = new HttpError("Error saving the updated event", 401);
+    console.log(err);
     return next(error);
   }
 
