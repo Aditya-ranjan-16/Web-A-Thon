@@ -73,8 +73,8 @@ const register = async (req, res, next) => {
       return next(error);
     }
   }
-
-  res.status(202).send("Hello");
 };
+
+const login = async (req, res, next) => {};
 
 exports.register = register;
