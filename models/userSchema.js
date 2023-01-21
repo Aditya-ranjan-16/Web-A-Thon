@@ -26,14 +26,19 @@ const userSchema = new mongoose.Schema({
     {
       link: {
         type: "string",
-        required: true,
+        // required: true,
       },
     },
   ],
+  Linkedin: {
+    type: "string",
+    required: true,
+  },
   password: {
     type: "string",
     required: true,
   },
+  College: { type: "string", required: true },
   avatar: {
     type: "string",
     required: true,
