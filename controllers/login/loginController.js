@@ -80,6 +80,17 @@ const login = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
+
+  const { email, password } = req.body;
+
+  var validateEmail;
+  try {
+    validateEmail = await member.findOne({ email: email });
+  } catch (e) {
+    const error = new HttpError("member not found", 500);
+    return next(error);
+  }
+
   res.status(202).send("Hello");
 };
 
