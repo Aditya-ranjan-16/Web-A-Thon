@@ -39,8 +39,22 @@ const addCompetition = async (req, res, next) => {
 const EditCompetition = async (req, res, next) => {};
 
 // Private || Delete Competition
-const DeleteCompetition = async (req, res, next) => {};
+const DeleteCompetition = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { _id } = req.body;
+
+  let userCheck = await Competitions.updateOne(
+    { user: userID },
+    { $pull: { Product: { _id: _id } } }
+  );
+
+  res.status(202).json(userCheck);
+};
 
 exports.addCompetition = addCompetition;
 exports.EditCompetition = EditCompetition;
-exports.addCompetition = addCompetition;
+exports.DeleteCompetition = DeleteCompetition;
