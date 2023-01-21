@@ -21,8 +21,9 @@ const competitionSchema = new mongoose.Schema({
     ref: "Users",
   },
   host: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
+    type: "string",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "Users",
   },
   category: [
     {
