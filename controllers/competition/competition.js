@@ -35,6 +35,7 @@ const addCompetition = async (req, res, next) => {
   }
 };
 
+// Private || Edit Competition
 const EditCompetition = async (req, res, next) => {};
 
 // Private || Delete Competition
