@@ -11,6 +11,8 @@ const { check, validationResult } = require("express-validator");
 router.post(
   "/add",
   [check("name", "name is Required").not().isEmpty()],
+  [check("des", "des is Required").not().isEmpty()],
+  [check("image", "image is Required").not().isEmpty()],
   competition.addCompetition
 );
 
