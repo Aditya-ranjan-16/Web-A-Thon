@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 const gravatar = require("gravatar");
+const bcrypt = require("bcrypt");
 
 const register = async (req, res, next) => {
   const errors = validationResult(req);
@@ -94,10 +95,15 @@ const login = async (req, res, next) => {
       return next(error);
     }
 
-    // const isMatch = await bcrypt.compare(password, validateEmail.password);
+    const isMatch = await bcrypt.compare(password, validateEmail.password);
+
+    if (!isMatch) {
+      return res.status(404).send("Worng Credentials");
+    }
 
     console.log(validateEmail.password);
     console.log(password);
+    console.log(isMatch);
 
     // if()
 
