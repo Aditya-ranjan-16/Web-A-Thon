@@ -19,7 +19,11 @@ router.post(
 );
 
 // Public || Edit Competition Data
-router.post("/Edit", competition.EditCompetition);
+router.post(
+  "/Edit",
+  check("_id", "_id is Required").not().isEmpty(),
+  competition.EditCompetition
+);
 
 // Public || Delete Competition Data
 router.delete(
