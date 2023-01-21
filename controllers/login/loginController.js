@@ -85,43 +85,55 @@ const login = async (req, res, next) => {
 
   var validateEmail;
   try {
-    validateEmail = await user.findOne({ email: email });
+    validateEmail = await user.findOne({ email });
 
     console.log(validateEmail);
 
-    if (validateEmail) {
-      const isMatch = await bcrypt.compare(password, validateEmail.password);
-      console.log("saveds :- " + validateEmail.password);
-      if (!isMatch) {
-        const error = new HttpError("Wrong credentials", 400);
-        return next(error);
-      }
-
-      console.log("Password Match ==================");
-      //     let token;
-      //     try {
-      //       token = jwt.sign(
-      //         {
-      //           userEmail: validateEmail.email,
-      //           designation: ismember ? validateEmail.designation : "user",
-      //         },
-      //         process.env.JWT_SECRATE,
-      //         { expiresIn: "3hr" }
-      //       );
-      //     } catch (err) {
-      //       const error = new HttpError("Error error generating token", 401);
-      //       console.log(err);
-      //       return next(error);
-      //     }
-
-      //     res
-      //       .status(200)
-      //       .json({ success: true, token: token, user: validateEmail });
-
-      // } else {
-      //   const error = new HttpError("Wrong Email Credentials", 400);
-      //   return next(error);
+    if (!validateEmail) {
+      const error = new HttpError("Wrong credentials", 400);
+      return next(error);
     }
+
+    // const isMatch = await bcrypt.compare(password, validateEmail.password);
+
+    console.log(validateEmail.password);
+    console.log(password);
+
+    // if()
+
+    // if (validateEmail) {
+    //   const isMatch = await bcrypt.compare(password, validateEmail.password);
+    //   console.log("saveds :- " + validateEmail.password);
+    //   if (!isMatch) {
+    //     const error = new HttpError("Wrong credentials", 400);
+    //     return next(error);
+    //   }
+
+    console.log("Password Match ==================");
+    //     let token;
+    //     try {
+    //       token = jwt.sign(
+    //         {
+    //           userEmail: validateEmail.email,
+    //           designation: ismember ? validateEmail.designation : "user",
+    //         },
+    //         process.env.JWT_SECRATE,
+    //         { expiresIn: "3hr" }
+    //       );
+    //     } catch (err) {
+    //       const error = new HttpError("Error error generating token", 401);
+    //       console.log(err);
+    //       return next(error);
+    //     }
+
+    //     res
+    //       .status(200)
+    //       .json({ success: true, token: token, user: validateEmail });
+
+    // } else {
+    //   const error = new HttpError("Wrong Email Credentials", 400);
+    //   return next(error);
+    // }
   } catch (e) {
     const error = new HttpError("User not found", 500);
     return next(error);
