@@ -7,7 +7,7 @@ const { check, validationResult } = require("express-validator");
 // auth
 // router.use(auth);
 
-// Public || Get user Data
+// Public || Add Competition Data
 router.post(
   "/add",
   [check("name", "name is Required").not().isEmpty()],
@@ -16,6 +16,16 @@ router.post(
   [check("categoryName", "categoryName is Required").not().isEmpty()],
   [check("teamSize", "teamSize is Required").not().isEmpty()],
   competition.addCompetition
+);
+
+// Public || Edit Competition Data
+router.post("/Edit", competition.EditCompetition);
+
+// Public || Delete Competition Data
+router.delete(
+  "/Delete",
+  check("_id", "_id is Required").not().isEmpty(),
+  competition.DeleteCompetition
 );
 
 module.exports = router;
