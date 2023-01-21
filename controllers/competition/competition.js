@@ -24,8 +24,6 @@ const addCompetition = async (req, res, next) => {
     let newObj = new CompetitionSchema(obj);
     await newObj.save();
 
-    // const res = await objNew.save();
-
     await res.status(202).send("Saved");
   } catch (e) {
     const error = new HttpError("Server Error", 505);
