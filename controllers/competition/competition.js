@@ -3,6 +3,7 @@ const Competitions = require("../../models/competitionSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
+// Private || Add Competition
 const addCompetition = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
