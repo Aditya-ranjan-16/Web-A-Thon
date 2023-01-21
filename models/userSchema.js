@@ -6,35 +6,33 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  roll: {
-    type: Number,
-    default: 0,
-    // required: true
-  },
-  number: {
-    type: Number,
-    default: 0,
-  },
-  image: {
+  email: {
     type: String,
-    // required: true,
-    default:
-      "https://play-lh.googleusercontent.com/fgt7dyhffQu9eHEYf1rfrL_xYupnY4bWa1A3PUt_7xXAi5Gi6LxW3SLMaPQwEH37JV4",
+    required: true,
   },
-  year: {
-    type: String,
-    default: null,
+  competition: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Competition",
   },
-  branch: {
-    type: String,
-    default: null,
-  },
-  eventid: [{ type: mongoose.Types.ObjectId, required: true, ref: "events" }],
-  email: { type: String, required: true },
-  password: {
-    type: String,
-    // required: true,
-    default: "",
+  skills: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  portfolio: [
+    {
+      link: {
+        type: "string",
+        required: true,
+      },
+    },
+  ],
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -47,6 +45,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const userList = new mongoose.model("users", userSchema);
+const userList = new mongoose.model("Users", userSchema);
 
 module.exports = userList;
