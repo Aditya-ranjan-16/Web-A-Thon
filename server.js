@@ -2,12 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const HttpError = require("./models/HttpError");
+const { request } = require("express");
 
 const app = express();
 
 dotenv.config();
-
 
 app.use(bodyParser.json());
 
@@ -25,16 +24,16 @@ app.use((req, res, next) => {
         
         next();
     });
-    app.get("/", (req, res) => {
+    app.get("/test", (req, res) => {
         res.send("Hello Server");
 });
 
+app.get("/",(req,res)=>{
+    res.status(202).send("HEllo World")
+})
 
-app.use((req, res, next) => {
-    console.log(req.url);
-    const error = new HttpError("Route not found", 404);
-    return next(error);
-});
+
+app.use("/api/user", require("./routes/user"));
 
 const port = process.env.PORT || 5000;
 
