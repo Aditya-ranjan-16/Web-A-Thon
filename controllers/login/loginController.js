@@ -122,8 +122,6 @@ const login = async (req, res, next) => {
     const error = new HttpError("User not found", 500);
     return next(error);
   }
-
-  res.status(202).send("Hello");
 };
 
 exports.login = login;
