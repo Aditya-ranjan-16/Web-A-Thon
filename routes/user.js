@@ -19,7 +19,7 @@ router.post(
   "/Login",
   [check("email", "email is Required").not().isEmpty()],
   [check("password", "password is Required").not().isEmpty()],
-  loginController.register
+  loginController.login
 );
 
 // auth
