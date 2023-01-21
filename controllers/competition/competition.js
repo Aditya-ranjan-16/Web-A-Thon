@@ -36,7 +36,25 @@ const addCompetition = async (req, res, next) => {
 };
 
 // Private || Edit Competition
-const EditCompetition = async (req, res, next) => {};
+const EditCompetition = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { _id, name, des, teamSize } = req.body;
+
+  let users;
+  try {
+    users = await Competitions.findOne({ _id });
+    console.log(users);
+  } catch (e) {
+    const error = new HttpError("Wrong Email Credentials", 400);
+    return next(error);
+  }
+
+  res.status(202).send("send");
+};
 
 // Private || Delete Competition
 const DeleteCompetition = async (req, res, next) => {
