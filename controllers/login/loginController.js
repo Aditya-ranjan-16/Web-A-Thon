@@ -75,6 +75,8 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {};
+const login = async (req, res, next) => {
+  res.status(202).send("Hello");
+};
 
 exports.register = register;
