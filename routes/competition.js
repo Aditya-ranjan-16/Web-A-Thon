@@ -4,8 +4,10 @@ const competition = require("../controllers/competition/competition");
 const auth = require("../middleWare/auth");
 const { check, validationResult } = require("express-validator");
 
+router.get("/getCompetition/:id", competition.ViewCompetition);
+
 // auth
-// router.use(auth);
+router.use(auth);
 
 // Public || Add Competition Data
 router.post(
