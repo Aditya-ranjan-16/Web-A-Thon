@@ -9,14 +9,25 @@ const addCompetition = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, des, image, categoryName } = req.body;
+  const { name, des, image, categoryName, teamSize } = req.body;
 
   try {
-  } catch (error) {}
+    let objNew = new competition({
+      name,
+      des,
+      image,
+      teamSize,
+      categoryName,
+      host: "host ID",
+    });
 
-  res.status(202).send({
-    message: `Name = ${name} || des = ${des} || img = ${image} || categoryName = ${categoryName}`,
-  });
+    const res = await objNew.save();
+
+    await res.status(202).send(res);
+  } catch (e) {
+    const error = new HttpError("Server Error", 505);
+    return next(error);
+  }
 };
 
 exports.addCompetition = addCompetition;
