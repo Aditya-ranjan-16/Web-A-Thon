@@ -37,6 +37,7 @@ const addCompetition = async (req, res, next) => {
 
 const EditCompetition = async (req, res, next) => {};
 
+// Private || Delete Competition
 const DeleteCompetition = async (req, res, next) => {};
 
 exports.addCompetition = addCompetition;
