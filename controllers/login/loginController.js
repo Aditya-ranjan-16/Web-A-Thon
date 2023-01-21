@@ -98,48 +98,26 @@ const login = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, validateEmail.password);
 
     if (!isMatch) {
-      return res.status(404).send("Worng Credentials");
+      const error = new HttpError("Wrong credentials", 400);
+      return next(error);
+    }
+    console.log("saveds :- " + validateEmail.password);
+    let token;
+    try {
+      token = jwt.sign(
+        {
+          userEmail: validateEmail.email,
+        },
+        process.env.JWT_SECRATE,
+        { expiresIn: "3hr" }
+      );
+    } catch (err) {
+      const error = new HttpError("Error error generating token", 401);
+      console.log(err);
+      return next(error);
     }
 
-    console.log(validateEmail.password);
-    console.log(password);
-    console.log(isMatch);
-
-    // if()
-
-    // if (validateEmail) {
-    //   const isMatch = await bcrypt.compare(password, validateEmail.password);
-    //   console.log("saveds :- " + validateEmail.password);
-    //   if (!isMatch) {
-    //     const error = new HttpError("Wrong credentials", 400);
-    //     return next(error);
-    //   }
-
-    console.log("Password Match ==================");
-    //     let token;
-    //     try {
-    //       token = jwt.sign(
-    //         {
-    //           userEmail: validateEmail.email,
-    //           designation: ismember ? validateEmail.designation : "user",
-    //         },
-    //         process.env.JWT_SECRATE,
-    //         { expiresIn: "3hr" }
-    //       );
-    //     } catch (err) {
-    //       const error = new HttpError("Error error generating token", 401);
-    //       console.log(err);
-    //       return next(error);
-    //     }
-
-    //     res
-    //       .status(200)
-    //       .json({ success: true, token: token, user: validateEmail });
-
-    // } else {
-    //   const error = new HttpError("Wrong Email Credentials", 400);
-    //   return next(error);
-    // }
+    res.status(200).json({ success: true, token: token, user: validateEmail });
   } catch (e) {
     const error = new HttpError("User not found", 500);
     return next(error);
