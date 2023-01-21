@@ -16,8 +16,7 @@ router.post(
 
 // Public || Get Login User
 router.post(
-  "/signup",
-  [check("name", "name is Required").not().isEmpty()],
+  "/Login",
   [check("email", "email is Required").not().isEmpty()],
   [check("password", "password is Required").not().isEmpty()],
   loginController.register
