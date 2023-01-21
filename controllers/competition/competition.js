@@ -104,6 +104,24 @@ const DeleteCompetition = async (req, res, next) => {
   res.status(202).json(userCheck);
 };
 
+// Public || View Competition
+const ViewCompetition = async (req, res, next) => {
+  try {
+    let comData = await Competitions.findById(req.params.id);
+
+    console.log(comData);
+    res.status(202).send(comData);
+  } catch (err) {
+    res.json({ form: false });
+    const error = new HttpError(
+      "Something went wrong, could not find Competion.",
+      500
+    );
+    return next(error);
+  }
+};
+
 exports.addCompetition = addCompetition;
 exports.EditCompetition = EditCompetition;
 exports.DeleteCompetition = DeleteCompetition;
+exports.ViewCompetition = ViewCompetition;
