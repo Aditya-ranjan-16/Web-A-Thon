@@ -13,6 +13,7 @@ router.post(
   [check("name", "name is Required").not().isEmpty()],
   [check("des", "des is Required").not().isEmpty()],
   [check("image", "image is Required").not().isEmpty()],
+  [check("categoryName", "categoryName is Required").not().isEmpty()],
   competition.addCompetition
 );
 
