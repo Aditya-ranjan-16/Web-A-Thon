@@ -7,6 +7,7 @@ const { check, validationResult } = require("express-validator");
 // auth
 router.use(auth);
 
+// Public || Get user Data
 router.post(
   "/",
   [check("email", "email is Required").not().isEmpty()],
