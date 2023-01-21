@@ -8,7 +8,7 @@ const { check, validationResult } = require("express-validator");
 // Public || Get Register User
 router.post(
   "/signup",
-  [check("email", "email is Required").not().isEmpty()],
+  [check("name", "name is Required").not().isEmpty()],
   [check("email", "email is Required").not().isEmpty()],
   [check("password", "password is Required").not().isEmpty()],
   loginController.register
