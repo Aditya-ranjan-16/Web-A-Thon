@@ -24,7 +24,7 @@ const getUserEvents = async (req, res, next) => {
 
     let competitionData = await Competitions.find({
       host: users._id,
-    });
+    }).populate("host");
 
     res.status(202).send(competitionData);
   } catch (e) {
@@ -34,6 +34,8 @@ const getUserEvents = async (req, res, next) => {
   }
 };
 
-// Private
+// Private || All Req for Competition
+const Allreq = async (req, res, next) => {};
 
 exports.getUserEvents = getUserEvents;
+exports.Allreq = Allreq;
