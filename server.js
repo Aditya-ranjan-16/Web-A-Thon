@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", require("./routes/user"));
 app.use("/api/competition", require("./routes/competition"));
+app.use("/api/request", require("./routes/request"));
 
 const port = process.env.PORT || 5000;
 
