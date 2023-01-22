@@ -5,6 +5,7 @@ const auth = require("../middleWare/auth");
 const { check, validationResult } = require("express-validator");
 
 router.get("/getCompetition/:id", competition.ViewCompetition);
+router.get("/AllCompetition", competition.AllCompetition);
 
 // auth
 router.use(auth);
