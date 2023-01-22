@@ -9,6 +9,14 @@ const competitionSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  venue: {
+    type: String,
+    // required: true,
+  },
+  vac: {
+    type: "number",
+    // required: true,
+  },
   image: {
     type: String,
     // required: true,
@@ -30,6 +38,10 @@ const competitionSchema = new mongoose.Schema({
       },
     },
   ],
+  postDate: {
+    type: Date,
+    require: true,
+  },
   date: { type: Date, default: Date.now },
   show: {
     type: "Boolean",
