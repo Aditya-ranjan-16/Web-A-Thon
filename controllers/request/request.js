@@ -71,6 +71,7 @@ const statusCheck = async (req, res, next) => {
 
         if (!requestData) {
           const error = new HttpError("Wrong competitionID", 400);
+          res.status(402).send({ status: false, requestData });
           return next(error);
         }
 
@@ -79,6 +80,7 @@ const statusCheck = async (req, res, next) => {
         console.log(e);
         const error = new HttpError("Wrong Email Credentials", 400);
         console.log(e);
+        res.status(402).send({ status: false, requestData });
         return next(error);
       }
     }
