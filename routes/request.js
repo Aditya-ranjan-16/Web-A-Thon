@@ -24,7 +24,15 @@ router.post(
   request.statusCheck
 );
 
-// Private || Request Status Check
+// Private || Request Accept Par.
+router.post(
+  "/AcceptReq",
+  [check("competitionID", "competitionID is Required").not().isEmpty()],
+  [check("userID", "userID is Required").not().isEmpty()],
+  request.AcceptReq
+);
+
+// Private || Request Remove Par.
 router.post(
   "/AcceptReq",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
