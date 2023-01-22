@@ -105,7 +105,7 @@ const Applied = async (req, res, next) => {
     let comData;
     try {
       comData = await request
-        .findOne({
+        .find({
           userID: userData._id,
         })
         .populate("competitionID");
