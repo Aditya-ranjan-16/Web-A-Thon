@@ -195,7 +195,41 @@ const RejectReq = async (req, res, next) => {
   }
 };
 
+const RejReq = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { competitionID, userID } = req.body;
+
+  let comData;
+  try {
+    comData = await request.findOne({
+      competitionID,
+    });
+
+    if (comData) {
+      comData.status = "reject";
+      try {
+        await comData.save();
+
+        return res.status(202).send("Req Rej");
+      } catch (e) {
+        const error = new HttpError("Error saving the updated event", 401);
+        console.log(e);
+        return next(error);
+      }
+    }
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
+};
+
 exports.addReq = addReq;
+exports.RejReq = RejReq;
 exports.statusCheck = statusCheck;
 exports.AcceptReq = AcceptReq;
 exports.RejectReq = RejectReq;
