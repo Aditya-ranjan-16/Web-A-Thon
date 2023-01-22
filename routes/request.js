@@ -44,7 +44,7 @@ router.post(
   "/Reject",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
   [check("userID", "userID is Required").not().isEmpty()],
-  request.RejectReq
+  request.RejReq
 );
 
 module.exports = router;
