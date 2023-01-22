@@ -11,17 +11,8 @@ const addCompetition = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const {
-    name,
-    des,
-    image,
-    categoryName,
-    venue,
-    vac,
-    postDate,
-    postTime,
-    teamSize,
-  } = req.body;
+  const { name, des, image, venue, vac, postDate, postTime, teamSize } =
+    req.body;
 
   let users;
   try {
@@ -33,7 +24,6 @@ const addCompetition = async (req, res, next) => {
           name,
           des,
           image,
-          category: {},
           venue,
           vac,
           postDate,
@@ -41,7 +31,6 @@ const addCompetition = async (req, res, next) => {
           teamSize,
           host: users._id,
         };
-        obj.category.name = categoryName;
         let newObj = new Competitions(obj);
         await newObj.save();
         res.status(202).send("Saved");
