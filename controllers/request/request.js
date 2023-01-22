@@ -48,7 +48,7 @@ const statusCheck = async (req, res, next) => {
       return next(error);
     }
 
-    return res.status(202).send(requestData);
+    return res.status(202).send({ status: true, requestData });
   } catch (e) {
     console.log(e);
     const error = new HttpError("Wrong Email Credentials", 400);
