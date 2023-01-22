@@ -47,7 +47,7 @@ const Allreq = async (req, res, next) => {
   let comData;
   try {
     comData = await request
-      .findOne({
+      .find({
         competitionID: id,
       })
       .populate("userID");
