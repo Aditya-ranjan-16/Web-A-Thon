@@ -8,7 +8,7 @@ router.get("/getCompetition/:id", competition.ViewCompetition);
 router.get("/AllCompetition", competition.AllCompetition);
 
 // auth
-// router.use(auth);
+router.use(auth);
 
 // Public || Add Competition Data
 router.post(
