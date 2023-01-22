@@ -14,4 +14,10 @@ router.post(
   dashboard.getUserEvents
 );
 
+router.post(
+  "/AllReq",
+  [check("id", "id is Required").not().isEmpty()],
+  dashboard.getUserEvents
+);
+
 module.exports = router;

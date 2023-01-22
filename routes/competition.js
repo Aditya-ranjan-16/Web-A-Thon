@@ -19,6 +19,7 @@ router.post(
   [check("categoryName", "categoryName is Required").not().isEmpty()],
   [check("teamSize", "teamSize is Required").not().isEmpty()],
   [check("postDate", "postDate is Required").not().isEmpty()],
+  [check("postTime", "postTime is Required").not().isEmpty()],
   [check("venue", "venue is Required").not().isEmpty()],
   [check("vac", "vac is Required").not().isEmpty()],
   competition.addCompetition

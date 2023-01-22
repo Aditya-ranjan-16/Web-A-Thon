@@ -41,6 +41,10 @@ const competitionSchema = new mongoose.Schema({
     type: Date,
     require: true,
   },
+  postTime: {
+    type: "string",
+    require: true,
+  },
   date: { type: Date, default: Date.now },
   show: {
     type: "Boolean",

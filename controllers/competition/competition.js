@@ -11,8 +11,17 @@ const addCompetition = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, des, image, categoryName, venue, vac, postDate, teamSize } =
-    req.body;
+  const {
+    name,
+    des,
+    image,
+    categoryName,
+    venue,
+    vac,
+    postDate,
+    postTime,
+    teamSize,
+  } = req.body;
 
   let users;
   try {
@@ -28,6 +37,7 @@ const addCompetition = async (req, res, next) => {
           venue,
           vac,
           postDate,
+          postTime,
           teamSize,
           host: users._id,
         };
