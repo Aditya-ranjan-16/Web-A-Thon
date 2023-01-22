@@ -17,7 +17,7 @@ router.post(
 router.post(
   "/AllReq",
   [check("id", "id is Required").not().isEmpty()],
-  dashboard.getUserEvents
+  dashboard.Allreq
 );
 
 module.exports = router;
