@@ -98,16 +98,21 @@ const AcceptReq = async (req, res, next) => {
 
         if (MaincomData.vac >= 1) {
           MaincomData.vac -= 1;
-
           MaincomData.participants.push(userID);
+
+          if (MaincomData.vac === 0) {
+            MaincomData.show = true;
+          }
 
           await comData.save();
           await MaincomData.save();
-        } else {
-          res.send;
+
+          return res.status(202).send("Data Saved");
         }
 
-        res.status(202).send(comData);
+        if (MaincomData.vac === 0) {
+          return res.status(400).send("Team Filled");
+        }
       } catch (e) {
         const error = new HttpError("Error saving the updated event", 401);
         console.log(e);
@@ -121,6 +126,9 @@ const AcceptReq = async (req, res, next) => {
   }
 };
 
+const RejectReq = async (req, res, next) => {};
+
 exports.addReq = addReq;
 exports.statusCheck = statusCheck;
 exports.AcceptReq = AcceptReq;
+exports.RejectReq = RejectReq;
