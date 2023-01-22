@@ -48,7 +48,7 @@ const competitionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   show: {
     type: "Boolean",
-    default: "false",
+    default: "true",
   },
 });
 
