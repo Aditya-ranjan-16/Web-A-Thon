@@ -82,7 +82,34 @@ const AcceptReq = async (req, res, next) => {
 
   const { competitionID, userID } = req.body;
 
-  res.status(202).send("Accept");
+  let comData;
+  try {
+    comData = await request.findOne({
+      competitionID,
+    });
+
+    if (comData) {
+      comData.status = "accept";
+
+      try {
+        await comData.save();
+
+        let MaincomData = await Competitions.findOne({
+          _id: competitionID,
+        });
+        console.log(MaincomData);
+        res.status(202).send(comData);
+      } catch (e) {
+        const error = new HttpError("Error saving the updated event", 401);
+        console.log(e);
+        return next(error);
+      }
+    }
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
 };
 
 exports.addReq = addReq;
