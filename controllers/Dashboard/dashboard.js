@@ -1,5 +1,6 @@
 const HttpError = require("../../models/HttpError");
 const Competitions = require("../../models/competitionSchema");
+const request = require("../../models/requestSchema");
 const user = require("../../models/userSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
@@ -35,7 +36,29 @@ const getUserEvents = async (req, res, next) => {
 };
 
 // Private || All Req for Competition
-const Allreq = async (req, res, next) => {};
+const Allreq = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { id } = req.body;
+
+  let comData;
+  try {
+    comData = await request
+      .findOne({
+        competitionID: id,
+      })
+      .populate("userID");
+
+    res.status(202).send(comData);
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
+};
 
 exports.getUserEvents = getUserEvents;
 exports.Allreq = Allreq;
