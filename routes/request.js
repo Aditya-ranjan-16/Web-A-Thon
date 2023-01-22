@@ -39,4 +39,12 @@ router.post(
   request.RejectReq
 );
 
+// Private || Request Reject Par.
+router.post(
+  "/Reject",
+  [check("competitionID", "competitionID is Required").not().isEmpty()],
+  [check("userID", "userID is Required").not().isEmpty()],
+  request.RejectReq
+);
+
 module.exports = router;
