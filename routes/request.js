@@ -27,6 +27,7 @@ router.post(
 // Private || Request Status Check
 router.post(
   "/AcceptReq",
+  [check("competitionID", "competitionID is Required").not().isEmpty()],
   [check("userID", "userID is Required").not().isEmpty()],
   request.AcceptReq
 );
