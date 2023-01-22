@@ -31,14 +31,10 @@ const competitionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
   },
-  category: [
-    {
-      name: {
-        type: String,
-        // required: true,
-      },
-    },
-  ],
+  category: {
+    type: "string",
+    default: "No",
+  },
   postDate: {
     type: Date,
     require: true,
