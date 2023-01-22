@@ -67,6 +67,8 @@ const AllreqUsers = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
+  const { id } = req.body;
+
   let userData;
   try {
     userData = await user.findOne({ email: res.locals.userData.userEmail });
