@@ -7,7 +7,7 @@ const { check, validationResult } = require("express-validator");
 // auth
 // router.use(auth);
 
-// Private || Add Request to join a event
+// Private || Get all events from the user
 router.post(
   "/Add",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
