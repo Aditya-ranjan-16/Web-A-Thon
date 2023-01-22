@@ -88,14 +88,12 @@ const EditCompetition = async (req, res, next) => {
   }
   try {
     await users.save();
-    res.status(200).json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (err) {
     const error = new HttpError("Error saving the updated event", 401);
     console.log(err);
     return next(error);
   }
-
-  res.status(202).send("send");
 };
 
 // Private || Delete Competition
