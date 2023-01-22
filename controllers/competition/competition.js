@@ -13,30 +13,32 @@ const addCompetition = async (req, res, next) => {
   const { name, des, image, categoryName, venue, vac, postDate, teamSize } =
     req.body;
 
-  try {
-    let obj = {
-      name,
-      des,
-      image,
-      category: {},
-      venue,
-      vac,
-      postDate,
-      teamSize,
-      host: "host ID",
-    };
+  console.log(res.locals.userData.userEmail);
 
-    obj.category.name = categoryName;
+  // try {
+  //   let obj = {
+  //     name,
+  //     des,
+  //     image,
+  //     category: {},
+  //     venue,
+  //     vac,
+  //     postDate,
+  //     teamSize,
+  //     host: "host ID",
+  //   };
 
-    let newObj = new Competitions(obj);
-    await newObj.save();
+  //   obj.category.name = categoryName;
 
-    res.status(202).send("Saved");
-  } catch (e) {
-    const error = new HttpError("Server Error", 505);
-    console.log(e);
-    return next(error);
-  }
+  //   let newObj = new Competitions(obj);
+  //   await newObj.save();
+
+  //   res.status(202).send("Saved");
+  // } catch (e) {
+  //   const error = new HttpError("Server Error", 505);
+  //   console.log(e);
+  //   return next(error);
+  // }
 };
 
 // Private || Edit Competition
