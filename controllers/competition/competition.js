@@ -1,5 +1,6 @@
 const HttpError = require("../../models/HttpError");
 const Competitions = require("../../models/competitionSchema");
+const user = require("../../models/userSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
@@ -13,32 +14,38 @@ const addCompetition = async (req, res, next) => {
   const { name, des, image, categoryName, venue, vac, postDate, teamSize } =
     req.body;
 
-  console.log(res.locals.userData.userEmail);
+  let users;
+  try {
+    users = await user.findOne({ email: res.locals.userData.userEmail });
 
-  // try {
-  //   let obj = {
-  //     name,
-  //     des,
-  //     image,
-  //     category: {},
-  //     venue,
-  //     vac,
-  //     postDate,
-  //     teamSize,
-  //     host: "host ID",
-  //   };
-
-  //   obj.category.name = categoryName;
-
-  //   let newObj = new Competitions(obj);
-  //   await newObj.save();
-
-  //   res.status(202).send("Saved");
-  // } catch (e) {
-  //   const error = new HttpError("Server Error", 505);
-  //   console.log(e);
-  //   return next(error);
-  // }
+    if (users) {
+      try {
+        let obj = {
+          name,
+          des,
+          image,
+          category: {},
+          venue,
+          vac,
+          postDate,
+          teamSize,
+          host: "host ID",
+        };
+        obj.category.name = categoryName;
+        let newObj = new Competitions(obj);
+        await newObj.save();
+        res.status(202).send("Saved");
+      } catch (e) {
+        const error = new HttpError("Server Error", 505);
+        console.log(e);
+        return next(error);
+      }
+    }
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
 };
 
 // Private || Edit Competition
