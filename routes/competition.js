@@ -8,7 +8,7 @@ router.get("/getCompetition/:id", competition.ViewCompetition);
 router.get("/AllCompetition", competition.AllCompetition);
 
 // auth
-router.use(auth);
+// router.use(auth);
 
 // Public || Add Competition Data
 router.post(
@@ -18,6 +18,9 @@ router.post(
   [check("image", "image is Required").not().isEmpty()],
   [check("categoryName", "categoryName is Required").not().isEmpty()],
   [check("teamSize", "teamSize is Required").not().isEmpty()],
+  [check("postDate", "postDate is Required").not().isEmpty()],
+  [check("venue", "venue is Required").not().isEmpty()],
+  [check("vac", "vac is Required").not().isEmpty()],
   competition.addCompetition
 );
 
