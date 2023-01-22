@@ -121,7 +121,14 @@ const ViewCompetition = async (req, res, next) => {
   }
 };
 
+// Public || All  Competition
+const AllCompetition = async (req, res, next) => {
+  let data = await Competitions.find().sort({ date: 1 });
+  res.status(202).json(data);
+};
+
 exports.addCompetition = addCompetition;
 exports.EditCompetition = EditCompetition;
 exports.DeleteCompetition = DeleteCompetition;
 exports.ViewCompetition = ViewCompetition;
+exports.AllCompetition = AllCompetition;
