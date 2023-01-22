@@ -11,7 +11,6 @@ router.use(auth);
 router.post(
   "/Add",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
-  // [check("userID", "userID is Required").not().isEmpty()],
   [check("hostID", "hostID is Required").not().isEmpty()],
   [check("message", "message is Required").not().isEmpty()],
   request.addReq
