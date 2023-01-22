@@ -92,12 +92,21 @@ const AcceptReq = async (req, res, next) => {
       comData.status = "accept";
 
       try {
-        await comData.save();
-
         let MaincomData = await Competitions.findOne({
           _id: competitionID,
         });
-        console.log(MaincomData);
+
+        if (MaincomData.vac >= 1) {
+          MaincomData.vac -= 1;
+
+          MaincomData.participants.push(userID);
+
+          await comData.save();
+          await MaincomData.save();
+        } else {
+          res.send;
+        }
+
         res.status(202).send(comData);
       } catch (e) {
         const error = new HttpError("Error saving the updated event", 401);
