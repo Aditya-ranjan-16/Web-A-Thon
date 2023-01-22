@@ -5,13 +5,13 @@ const auth = require("../middleWare/auth");
 const { check, validationResult } = require("express-validator");
 
 // auth
-// router.use(auth);
+router.use(auth);
 
 // Private || Add Request to join a event
 router.post(
   "/Add",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
-  [check("userID", "userID is Required").not().isEmpty()],
+  // [check("userID", "userID is Required").not().isEmpty()],
   [check("hostID", "hostID is Required").not().isEmpty()],
   [check("message", "message is Required").not().isEmpty()],
   request.addReq
@@ -23,6 +23,13 @@ router.post(
   [check("competitionID", "competitionID is Required").not().isEmpty()],
   [check("userID", "userID is Required").not().isEmpty()],
   request.statusCheck
+);
+
+// Private || Request Status Check
+router.post(
+  "/AcceptReq",
+  [check("userID", "userID is Required").not().isEmpty()],
+  request.AcceptReq
 );
 
 module.exports = router;
