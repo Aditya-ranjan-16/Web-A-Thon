@@ -49,6 +49,7 @@ const Allreq = async (req, res, next) => {
     comData = await request
       .find({
         competitionID: id,
+        status: "applied",
       })
       .populate("userID");
 
