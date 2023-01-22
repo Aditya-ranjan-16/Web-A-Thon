@@ -29,7 +29,7 @@ const addCompetition = async (req, res, next) => {
           vac,
           postDate,
           teamSize,
-          host: "host ID",
+          host: users._id,
         };
         obj.category.name = categoryName;
         let newObj = new Competitions(obj);
@@ -71,36 +71,47 @@ const EditCompetition = async (req, res, next) => {
     vac,
   } = req.body;
 
-  let users;
+  let userData;
   try {
-    users = await Competitions.findOne({ _id });
+    userData = await user.findOne({ email: res.locals.userData.userEmail });
 
-    console.log(users);
+    if (userData) {
+      let users;
+      try {
+        users = await Competitions.findOne({ _id });
+
+        console.log(users);
+      } catch (e) {
+        const error = new HttpError("Wrong Email Credentials", 400);
+        return next(error);
+      }
+
+      if (users) {
+        users.name = name;
+        users.des = des;
+        users.image = image;
+        users.teamSize = teamSize;
+        users.participants = participants;
+        users.host = host;
+        users.category = category;
+        users.date = date;
+        users.show = show;
+        users.postDate = postDate;
+        users.venue = venue;
+        users.vac = vac;
+      }
+      try {
+        await users.save();
+        return res.status(200).json({ success: true });
+      } catch (err) {
+        const error = new HttpError("Error saving the updated event", 401);
+        console.log(err);
+        return next(error);
+      }
+    }
   } catch (e) {
-    const error = new HttpError("Wrong Email Credentials", 400);
-    return next(error);
-  }
-
-  if (users) {
-    users.name = name;
-    users.des = des;
-    users.image = image;
-    users.teamSize = teamSize;
-    users.participants = participants;
-    users.host = host;
-    users.category = category;
-    users.date = date;
-    users.show = show;
-    users.postDate = postDate;
-    users.venue = venue;
-    users.vac = vac;
-  }
-  try {
-    await users.save();
-    return res.status(200).json({ success: true });
-  } catch (err) {
-    const error = new HttpError("Error saving the updated event", 401);
-    console.log(err);
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
     return next(error);
   }
 };
