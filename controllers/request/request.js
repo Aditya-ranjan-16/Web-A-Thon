@@ -1,5 +1,5 @@
 const HttpError = require("../../models/HttpError");
-const Competitions = require("../../models/competitionSchema");
+const request = require("../../models/requestSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
@@ -10,21 +10,17 @@ const addReq = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, des, image, categoryName, teamSize } = req.body;
+  const { competitionID, userID, hostID, message } = req.body;
 
   try {
     let obj = {
-      name,
-      des,
-      image,
-      teamSize,
-      category: {},
-      host: "host ID",
+      competitionID,
+      userID,
+      hostID,
+      message,
     };
 
-    obj.category.name = categoryName;
-
-    let newObj = new Competitions(obj);
+    let newObj = new request(obj);
     await newObj.save();
 
     res.status(202).send("Saved");
