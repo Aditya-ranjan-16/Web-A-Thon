@@ -1,5 +1,6 @@
 const HttpError = require("../../models/HttpError");
 const Competitions = require("../../models/competitionSchema");
+const user = require("../../models/userSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
@@ -12,8 +13,11 @@ const getUserEvents = async (req, res, next) => {
 
   const { email } = req.body;
 
+  let users;
   try {
-    res.status(202).send(email);
+    users = await user.findOne({ email });
+
+    res.status(202).send(users._id);
   } catch (e) {
     const error = new HttpError("Server Error", 505);
     console.log(e);
