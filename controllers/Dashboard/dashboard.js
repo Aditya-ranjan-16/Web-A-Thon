@@ -11,9 +11,10 @@ const getUserEvents = async (req, res, next) => {
     userData = await user.findOne({ email: res.locals.userData.userEmail });
 
     if (userData) {
-      let competitionData = Competitions.find({ host: userData._id });
+      console.log(userData._id);
+      //   let competitionData = Competitions.find({ host: userData._id });
 
-      res.status(202).send(competitionData);
+      //   res.status(202).send(competitionData);
     }
   } catch (e) {
     const error = new HttpError("Email Not Found", 505);
