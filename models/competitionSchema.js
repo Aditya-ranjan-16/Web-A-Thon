@@ -16,12 +16,7 @@ const competitionSchema = new mongoose.Schema({
   teamSize: {
     type: "number",
   },
-  participants: [
-    {
-      id: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
-      message: "string",
-    },
-  ],
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
   host: {
     type: "string",
     // type: mongoose.Schema.Types.ObjectId,
