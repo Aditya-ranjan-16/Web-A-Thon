@@ -8,10 +8,6 @@ const { check, validationResult } = require("express-validator");
 router.use(auth);
 
 // Private || Get all events from the user
-router.post(
-  "/Get",
-  [check("email", "email is Required").not().isEmpty()],
-  dashboard.getUserEvents
-);
+router.post("/Get", dashboard.getUserEvents);
 
 module.exports = router;
