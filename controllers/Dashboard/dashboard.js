@@ -96,6 +96,34 @@ const AllreqUsers = async (req, res, next) => {
   }
 };
 
+const Applied = async (req, res, next) => {
+  let userData;
+
+  try {
+    userData = await user.findOne({ email: res.locals.userData.userEmail });
+
+    let comData;
+    try {
+      comData = await request
+        .findOne({
+          userID: userData._id,
+        })
+        .populate("competitionID");
+
+      res.status(202).send(comData);
+    } catch (e) {
+      const error = new HttpError("Email Not Found", 505);
+      console.log(e);
+      return next(error);
+    }
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
+};
+
 exports.getUserEvents = getUserEvents;
 exports.AllreqUsers = AllreqUsers;
 exports.Allreq = Allreq;
+exports.Applied = Applied;
