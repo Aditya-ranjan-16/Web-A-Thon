@@ -123,8 +123,13 @@ const ViewCompetition = async (req, res, next) => {
 
 // Public || All  Competition
 const AllCompetition = async (req, res, next) => {
-  let data = await Competitions.find().sort({ date: -1 });
-  res.status(202).json(data);
+  try {
+    let data = await Competitions.find().sort({ date: -1 });
+    res.status(202).json(data);
+  } catch (e) {
+    const error = new HttpError("Server Error", 505);
+    return next(e);
+  }
 };
 
 exports.addCompetition = addCompetition;
