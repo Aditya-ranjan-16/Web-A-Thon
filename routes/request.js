@@ -20,7 +20,6 @@ router.post(
 router.post(
   "/Status",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
-  [check("userID", "userID is Required").not().isEmpty()],
   request.statusCheck
 );
 
@@ -34,10 +33,10 @@ router.post(
 
 // Private || Request Remove Par.
 router.post(
-  "/AcceptReq",
+  "/RemoveReq",
   [check("competitionID", "competitionID is Required").not().isEmpty()],
   [check("userID", "userID is Required").not().isEmpty()],
-  request.AcceptReq
+  request.RejectReq
 );
 
 module.exports = router;
