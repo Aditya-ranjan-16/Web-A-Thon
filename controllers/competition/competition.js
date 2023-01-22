@@ -125,11 +125,21 @@ const DeleteCompetition = async (req, res, next) => {
 
   const { _id } = req.body;
 
-  let userCheck = await Competitions.deleteOne({
-    _id,
-  });
+  let userData;
+  try {
+    userData = await user.findOne({ email: res.locals.userData.userEmail });
+    if (userData) {
+      let userCheck = await Competitions.deleteOne({
+        _id,
+      });
 
-  res.status(202).json(userCheck);
+      res.status(202).json(userCheck);
+    }
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
 };
 
 // Public || View Competition
