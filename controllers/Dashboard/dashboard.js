@@ -17,6 +17,13 @@ const getUserEvents = async (req, res, next) => {
   try {
     users = await user.findOne({ email });
 
+    if (!user) {
+      const error = new HttpError("Wrong email", 400);
+      return next(error);
+    }
+
+    // let competitionData = Competitions.find({ host: users._id });
+
     res.status(202).send(users._id);
   } catch (e) {
     const error = new HttpError("Server Error", 505);
