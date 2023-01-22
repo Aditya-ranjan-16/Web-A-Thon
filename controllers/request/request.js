@@ -31,4 +31,18 @@ const addReq = async (req, res, next) => {
   }
 };
 
+const statusCheck = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { competitionID, userID } = req.body;
+
+  res
+    .status(202)
+    .send({ message: `competitionID=${competitionID}, userID=${userID}` });
+};
+
 exports.addReq = addReq;
+exports.statusCheck = statusCheck;
