@@ -20,4 +20,10 @@ router.post(
   dashboard.Allreq
 );
 
+router.post(
+  "/AllReqUsers",
+  [check("id", "id is Required").not().isEmpty()],
+  dashboard.AllreqUsers
+);
+
 module.exports = router;
