@@ -26,4 +26,6 @@ router.post(
   dashboard.AllreqUsers
 );
 
+router.post("/Applied", dashboard.Applied);
+
 module.exports = router;
