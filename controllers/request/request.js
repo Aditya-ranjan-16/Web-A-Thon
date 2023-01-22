@@ -126,7 +126,20 @@ const AcceptReq = async (req, res, next) => {
   }
 };
 
-const RejectReq = async (req, res, next) => {};
+const RejectReq = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  let comData;
+  try {
+  } catch (e) {
+    const error = new HttpError("Email Not Found", 505);
+    console.log(e);
+    return next(error);
+  }
+};
 
 exports.addReq = addReq;
 exports.statusCheck = statusCheck;
