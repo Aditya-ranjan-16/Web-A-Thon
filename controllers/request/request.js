@@ -32,6 +32,7 @@ const addReq = async (req, res, next) => {
   }
 };
 
+// Private || Status Check
 const statusCheck = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
