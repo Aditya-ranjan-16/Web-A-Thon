@@ -60,5 +60,40 @@ const Allreq = async (req, res, next) => {
   }
 };
 
+// Private || All Req for Competition
+const AllreqUsers = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  let userData;
+  try {
+    userData = await user.findOne({ email: res.locals.userData.userEmail });
+
+    if (userData) {
+      let comData;
+      try {
+        comData = await request
+          .findOne({
+            competitionID: id,
+          })
+          .populate("competitionID");
+
+        res.status(202).send(comData);
+      } catch (e) {
+        const error = new HttpError("Email Not Found", 505);
+        console.log(e);
+        return next(error);
+      }
+    }
+  } catch (e) {
+    const error = new HttpError("Wrong Email Credentials", 400);
+    console.log(e);
+    return next(error);
+  }
+};
+
 exports.getUserEvents = getUserEvents;
+exports.AllreqUsers = AllreqUsers;
 exports.Allreq = Allreq;
