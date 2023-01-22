@@ -1,6 +1,7 @@
 const HttpError = require("../../models/HttpError");
 const request = require("../../models/requestSchema");
 const Competitions = require("../../models/competitionSchema");
+const user = require("../../models/userSchema");
 const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
@@ -11,22 +12,38 @@ const addReq = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { competitionID, userID, hostID, message } = req.body;
+  const {
+    competitionID,
+    // userID,
+    hostID,
+    message,
+  } = req.body;
 
+  let users;
   try {
-    let obj = {
-      competitionID,
-      userID,
-      hostID,
-      message,
-    };
+    users = await user.findOne({ email: res.locals.userData.userEmail });
 
-    let newObj = new request(obj);
-    await newObj.save();
+    if (users) {
+      try {
+        let obj = {
+          competitionID,
+          userID: users._id,
+          hostID,
+          message,
+        };
 
-    res.status(202).send("Saved");
+        let newObj = new request(obj);
+        await newObj.save();
+
+        res.status(202).send("Saved");
+      } catch (e) {
+        const error = new HttpError("Server Error", 505);
+        console.log(e);
+        return next(error);
+      }
+    }
   } catch (e) {
-    const error = new HttpError("Server Error", 505);
+    const error = new HttpError("Email Not Found", 505);
     console.log(e);
     return next(error);
   }
@@ -57,5 +74,15 @@ const statusCheck = async (req, res, next) => {
   }
 };
 
+const AcceptReq = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  res.status(202).send("Accept");
+};
+
 exports.addReq = addReq;
 exports.statusCheck = statusCheck;
+exports.AcceptReq = AcceptReq;
