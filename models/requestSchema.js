@@ -23,6 +23,7 @@ const requestSchema = new mongoose.Schema({
   status: {
     type: "string",
     required: true,
+    default: "applied",
   },
   date: { type: Date, default: Date.now },
 });
