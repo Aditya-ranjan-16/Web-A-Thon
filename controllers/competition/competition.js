@@ -145,7 +145,7 @@ const DeleteCompetition = async (req, res, next) => {
 // Public || View Competition
 const ViewCompetition = async (req, res, next) => {
   try {
-    let comData = await Competitions.findById(req.params.id);
+    let comData = await Competitions.findById(req.params.id).populate("host");
 
     console.log(comData);
     res.status(202).send(comData);
